@@ -1,0 +1,7 @@
+{
+  "name": "Scottish Golf Enhanced Rating Toolkit v02.26",
+  "description": "Scottish Golf Enhanced Rating Toolkit v2 February 2026",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
