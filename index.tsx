@@ -808,13 +808,15 @@ useMapEvents({
     zoomstart: () => { setIsFollowing(false); }
   });
 
-  useEffect(() => {
-    const currentId = viewingRecord ? viewingRecord.id : (active ? 'active' : 'idle');
-    if (lastViewId.current !== currentId) {
-      isUserInteracting.current = false;
-      lastViewId.current = currentId;
-    }
-  }, [viewingRecord, active]);
+useEffect(() => {
+  const currentId = viewingRecord ? viewingRecord.id : (active ? 'active' : 'idle');
+  if (lastViewId.current !== currentId) {
+    // When switching to a new record or starting a new hole, 
+    // we want the map to automatically snap to the data.
+    setIsFollowing(true); 
+    lastViewId.current = currentId;
+  }
+}, [viewingRecord, active]);
 
 useEffect(() => {
     const currentPts = mode === 'green' ? mapPoints : trkPoints;
