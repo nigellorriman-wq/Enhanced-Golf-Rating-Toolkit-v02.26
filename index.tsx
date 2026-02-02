@@ -34,7 +34,8 @@ import {
   CircleDot,
   Crosshair,
   Route,
-  Waypoints
+  Waypoints,
+  Home
 } from 'lucide-react';
 
 /** --- TYPES --- **/
@@ -1285,8 +1286,13 @@ const App: React.FC = () => {
       ) : (
         <div className="flex-1 flex flex-col relative animate-in slide-in-from-right duration-300">
           <div className="absolute top-0 left-0 right-0 z-[1000] p-4 flex justify-between pointer-events-none">
-            <button onClick={() => { setView('landing'); setTrkActive(false); setMapActive(false); setViewingRecord(null); setShowPivotMenu(false); setTrkPoints([]); setCurrentPivots([]); }} className="pointer-events-auto bg-slate-800 border border-white/20 px-5 py-3 rounded-full flex items-center gap-2 shadow-2xl active:scale-95 transition-all">
-              <ChevronLeft size={18} className="text-emerald-400" /><span className="text-[11px] uppercase tracking-widest font-semibold text-blue-500">Home</span>
+          <button onClick={() => { 
+            setView('landing'); setTrkActive(false); setMapActive(false); setViewingRecord(null); setShowPivotMenu(false); setTrkPoints([]); setCurrentPivots([]); 
+              }} 
+              className="pointer-events-auto bg-slate-800 border border-white/20 w-[46px] h-[46px] rounded-full flex items-center justify-center shadow-2xl active:scale-95 transition-all"
+              title="Home"
+            >
+              <Home size={20} className="text-blue-500" />
             </button>
             <div className="flex gap-2 pointer-events-auto">
               {((view === 'track' && (trkActive || trkPoints.length > 0)) || (view === 'green' && mapActive) || viewingRecord) && (
