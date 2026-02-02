@@ -1292,7 +1292,7 @@ const App: React.FC = () => {
               className="pointer-events-auto bg-slate-800 border border-white/20 w-[46px] h-[46px] rounded-full flex items-center justify-center shadow-2xl active:scale-95 transition-all"
               title="Home"
             >
-              <Home size={20} className="text-blue-500" />
+              <Home size={20} className="text-yellow-900" />
             </button>
             <div className="flex gap-2 pointer-events-auto">
               {((view === 'track' && (trkActive || trkPoints.length > 0)) || (view === 'green' && mapActive) || viewingRecord) && (
