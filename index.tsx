@@ -841,12 +841,8 @@ const MapController: React.FC<{
       const bounds = L.latLngBounds(trkPoints.map(p => [p.lat, p.lng]));
       map.fitBounds(bounds, { padding: [40, 40], paddingBottomRight: [40, 280], animate: true });
     } else if (active && pos) {
-      if (currentPts.length >= 1) {
-        const bounds = L.latLngBounds([...currentPts, pos].map(p => [p.lat, p.lng]));
-        map.fitBounds(bounds, { padding: [80, 80], paddingBottomRight: [40, 280], animate: true, maxZoom: 19 });
-      } else {
-        map.setView([pos.lat, pos.lng], 19, { animate: false });
-      }
+// This keeps the rater centered at the current zoom level
+map.setView([pos.lat, pos.lng], map.getZoom(), { animate: true });
       hasInitialLock.current = true;
     } else if (pos) {
       if (!hasInitialLock.current) {
