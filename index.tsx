@@ -181,7 +181,7 @@ const USER_MANUAL = [
     icon: <MapPin className="text-rose-500" />,
     content: (
       <>
-        If your location isn't showing when you're trying to track a distance or map a green, try the following help sources 1) <a href="https://support.google.com/nexus/topic/6143651" target="_blank" rel="noopener noreferrer" className="text-yellow-400 underline">Android devices</a>  2) <a href="https://support.apple.com/en-gb/102647" target="_blank" rel="noopener noreferrer" className="text-emerald-500 underline">iOS (Apple) devices</a>
+        If your location isn't showing when you're trying to track a distance or map a green, try the following help sources 1) <a href="https://support.google.com/nexus/topic/6143651" target="_blank" rel="noopener noreferrer" className="text--400 underline">Android devices</a>  2) <a href="https://support.apple.com/en-gb/102647" target="_blank" rel="noopener noreferrer" className="text-emerald-500 underline">iOS (Apple) devices</a>
       </>
     )
   },
@@ -225,7 +225,7 @@ The App is able to toggle the display between the actual route through all of th
     icon: <Crosshair className="text-orange-400" />,
     content: (
       <>
-The App is able to display the 'Accuracy Pattern' in realtime for Scratch and Bogey players. This display is toggled with the button to the left of the units button and cycles between 'Off' (default), <span className="text-emerald-500 font-black">Scratch</span> or <span className="text-yellow-500 font-black">Bogey.</span> This function allows the Rater to see on the background satellite imagery the proximity of obstacles around the target. To use this facility properly, mark every shot as a pivot, so that the next shot length is used.
+The App is able to display the 'Accuracy Pattern' in realtime for Scratch and Bogey players. This display is toggled with the button to the left of the units button and cycles between 'Off' (default), <span className="text-emerald-500 font-black">Scratch</span> or <span className="text--500 font-black">Bogey.</span> This function allows the Rater to see on the background satellite imagery the proximity of obstacles around the target. To use this facility properly, mark every shot as a pivot, so that the next shot length is used.
       </>
     )
   },
@@ -265,8 +265,8 @@ The App is able to display the 'Accuracy Pattern' in realtime for Scratch and Bo
   },
   {
     title: "Data import/export",
-    color: "text-yellow-400",
-    icon: <BookOpen className="text-yellow-400" />,
+    color: "text--400",
+    icon: <BookOpen className="text--400" />,
     content: "Whenever you save a track or green area, the data appears at the bottom of the homescreen. Select a result and it will show you the results again. Hitting the bin icon will delete an individual record. You can also save all results to a KML file, which will be stored in your downloads folder. The filename will be the current date and time. KML files can be opened in GIS packages, such as Google Earth or Google Maps for analysis and archiving purposes. If you already have a KML file from a previous rating, or have digitised greens in Google Earth and wish to import them for EGD processing, you can do this using 'Import KML'"
   },
   {
@@ -391,7 +391,7 @@ const getVerticalMethod = (accuracy: number | null, alt: number | null): string 
 const getBunkerPercentageColor = (bunkerPct: number | undefined): string => {
   if (bunkerPct === undefined) return 'text-white/40';
   if (bunkerPct <= 25) return 'text-emerald-400';
-  if (bunkerPct > 25 && bunkerPct <= 50) return 'text-yellow-400';
+  if (bunkerPct > 25 && bunkerPct <= 50) return 'text--400';
   if (bunkerPct > 50 && bunkerPct <= 75) return 'text-orange-400';
   return 'text-white';
 };
@@ -1007,8 +1007,8 @@ const StimpCalculator: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                 <span className="text-left">{formatResult(result)}</span>
                 {slopeCat && (
                   <div className="flex flex-col items-center">
-                    <span className="text-2xl text-yellow-400 bg-yellow-400/10 px-3 py-1 rounded-xl border border-yellow-400/20 tabular-nums">({slopeCat})</span>
-                    {slopeSub && <span className="text-[14px] font-bold text-yellow-500 uppercase mt-1 tracking-widest">{slopeSub}</span>}
+                    <span className="text-2xl text--400 bg--400/10 px-3 py-1 rounded-xl border border--400/20 tabular-nums">({slopeCat})</span>
+                    {slopeSub && <span className="text-[14px] font-bold text--500 uppercase mt-1 tracking-widest">{slopeSub}</span>}
                   </div>
                 )}
               </div>
@@ -1225,7 +1225,7 @@ const App: React.FC = () => {
         <div className="flex-1 flex flex-col p-6 overflow-y-auto no-scrollbar animate-in fade-in duration-700">
           <header className="mb-12 mt-8 flex flex-col items-center text-center">
             <h1 className="text-5xl tracking-tighter font-bold text-blue-500">Scottish Golf</h1>
-            <p className="text-white text-[11px] font-bold tracking-[0.4em] uppercase mt-2 opacity-80"><span className="text-yellow-400">ENHANCED</span> Course Rating Toolkit v02.26</p>
+            <p className="text-white text-[11px] font-bold tracking-[0.4em] uppercase mt-2 opacity-80"><span className="text--400">ENHANCED</span> Course Rating Toolkit v02.26</p>
           </header>
           <div className="flex flex-col gap-6">
             <button onClick={() => { setViewingRecord(null); setTrkPoints([]); setCurrentPivots([]); setView('track'); }} className="bg-slate-900 border border-white/5 rounded-[2.5rem] p-10 flex flex-col items-center justify-center shadow-2xl active:scale-95 transition-all">
@@ -1292,7 +1292,7 @@ const App: React.FC = () => {
               className="pointer-events-auto bg-slate-800 border border-white/20 w-[46px] h-[46px] rounded-full flex items-center justify-center shadow-2xl active:scale-95 transition-all"
               title="Home"
             >
-              <Home size={20} className="text-yellow-900" />
+              <Home size={20} className="text-yellow-400" />
             </button>
             <div className="flex gap-2 pointer-events-auto">
               {((view === 'track' && (trkActive || trkPoints.length > 0)) || (view === 'green' && mapActive) || viewingRecord) && (
