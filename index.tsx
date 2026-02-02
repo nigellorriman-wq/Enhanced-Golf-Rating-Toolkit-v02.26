@@ -943,7 +943,7 @@ const StimpCalculator: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           className="bg-slate-800 border border-white/20 w-[46px] h-[46px] rounded-full flex items-center justify-center shadow-2xl active:scale-95 transition-all"
           title="Home"
         >
-          <Home size={20} className="text-blue-500" />
+          <Home size={20} className="text-yellow-400" />
         </button>
         <h1 className="text-3xl tracking-tighter font-semibold text-blue-500">Sloping Greens</h1>
       </div>
