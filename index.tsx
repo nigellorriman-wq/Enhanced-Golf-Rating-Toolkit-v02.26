@@ -938,9 +938,12 @@ const StimpCalculator: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   return (
     <div className="fixed inset-0 z-[2000] bg-[#020617] flex flex-col p-4 overflow-y-auto no-scrollbar">
       <div className="flex justify-between items-center mb-4 mt-2">
-        <button onClick={onClose} className="bg-slate-800 border border-white/20 px-5 py-3 rounded-full flex items-center gap-2 shadow-2xl active:scale-95 transition-all">
-          <ChevronLeft size={18} className="text-emerald-400" />
-          <span className="text-[11px] uppercase tracking-widest font-semibold text-blue-500">Home</span>
+<button 
+          onClick={onClose} 
+          className="bg-slate-800 border border-white/20 w-[46px] h-[46px] rounded-full flex items-center justify-center shadow-2xl active:scale-95 transition-all"
+          title="Home"
+        >
+          <Home size={20} className="text-blue-500" />
         </button>
         <h1 className="text-3xl tracking-tighter font-semibold text-blue-500">Sloping Greens</h1>
       </div>
