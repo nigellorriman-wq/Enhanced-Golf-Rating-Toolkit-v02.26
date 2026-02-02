@@ -38,7 +38,7 @@ import {
 } from 'lucide-react';
 
 /** --- TYPES --- **/
-type AppView = 'landing' | 'track' | 'green' | 'manual' | 'stimp';
+type View = 'landing' | 'track' | 'green' | 'manual' | 'stimp';
 type UnitSystem = 'Yards' | 'Metres';
 type FontSize = 'small' | 'medium' | 'large';
 type RatingGender = 'Men' | 'Women'; 
@@ -796,17 +796,16 @@ const AccuracyOvals: React.FC<{ pos: GeoPoint | null, anchor: GeoPoint | null, g
 };
 
 const MapController: React.FC<{ 
-  pos: GeoPoint | null, active: boolean, mapPoints: GeoPoint[], completed: boolean, viewingRecord: SavedRecord | null, mode: AppView, trkPoints: GeoPoint[]
-}> = ({ pos, active, mapPoints, completed, viewingRecord, mode, trkPoints }) => {
+  pos: GeoPoint | null, active: boolean, mapPoints: GeoPoint[], completed: boolean, viewingRecord: SavedRecord | null, mode: AppView, trkPoints: GeoPoint[], isFollowing: boolean, setIsFollowing: (v: boolean) => void
+}> = ({ pos, active, mapPoints, completed, viewingRecord, mode, trkPoints, isFollowing, setIsFollowing }) => {
   const map = useMap();
-  const isUserInteracting = useRef(false);
   const lastViewId = useRef<string | null>(null);
   const hasInitialLock = useRef(false);
   const prevPointsLength = useRef(0);
 
-  useMapEvents({
-    dragstart: () => { isUserInteracting.current = true; },
-    zoomstart: () => { isUserInteracting.current = true; }
+useMapEvents({
+    dragstart: () => { setIsFollowing(false); },
+    zoomstart: () => { setIsFollowing(false); }
   });
 
   useEffect(() => {
@@ -817,17 +816,18 @@ const MapController: React.FC<{
     }
   }, [viewingRecord, active]);
 
-  useEffect(() => {
+useEffect(() => {
     const currentPts = mode === 'green' ? mapPoints : trkPoints;
     
-    // Reset interaction lock if points were added (e.g. pivot inserted)
+    // Automatically resume following if a new point is added (e.g. pivot inserted)
     if (currentPts.length > prevPointsLength.current) {
-      isUserInteracting.current = false;
+      setIsFollowing(true);
     }
     prevPointsLength.current = currentPts.length;
 
-    if (isUserInteracting.current) return;
-    
+    // Gatekeeper: if "Follow" is toggled off (manual movement), stop here
+    if (!isFollowing) return;
+  
     if (viewingRecord) {
       const pts = viewingRecord.type === 'Green' ? viewingRecord.points : viewingRecord.raterPathPoints;
       if (pts && pts.length > 0) {
@@ -1040,7 +1040,9 @@ const App: React.FC = () => {
   const [mapPoints, setMapPoints] = useState<GeoPoint[]>([]);
   const [isBunker, setIsBunker] = useState(false);
   const [ovalMode, setOvalMode] = useState<OvalMode>('off');
+  const [isFollowing, setIsFollowing] = useState(true);
   const CONCAVITY_FIXED = 0.82;
+
 
   useEffect(() => {
     const saved = localStorage.getItem('scottish_golf_rating_toolkit_final');
@@ -1300,6 +1302,7 @@ const App: React.FC = () => {
                   {viewingTrackProfile === 'Rater\'s Walk' ? <Route size={20} className="text-rose-500" /> : <Waypoints size={20} className="text-emerald-400" />}
                 </button>
               )}
+              <button onClick={() => setIsFollowing(true)} className={`bg-slate-800 border border-white/20 p-3.5 rounded-full shadow-2xl active:scale-90 transition-all ${isFollowing ? 'text-emerald-400' : 'text-slate-500'}`} title="Recenter Map"> <Crosshair size={20} className={isFollowing ? 'animate-pulse' : ''} /></button>
               <button onClick={() => setUnits(u => u === 'Yards' ? 'Metres' : 'Yards')} className="bg-slate-800 border border-white/20 p-3.5 rounded-full text-emerald-400 shadow-2xl active:scale-90"><Ruler size={20} /></button>
               <button onClick={() => setMapStyle(s => s === 'Street' ? 'Satellite' : 'Street')} className="bg-slate-800 border border-white/20 p-3.5 rounded-full text-blue-400 shadow-2xl active:scale-90"><Layers size={20} /></button>
             </div>
@@ -1308,7 +1311,7 @@ const App: React.FC = () => {
             {(pos || viewingRecord) ? (
               <MapContainer center={[0, 0]} zoom={2} className="h-full w-full" zoomControl={false} attributionControl={false} style={{ backgroundColor: '#020617' }}>
                 <TileLayer url={mapStyle === 'Street' ? "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" : "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"} maxZoom={22} maxNativeZoom={19} />
-                <MapController pos={pos} active={trkActive || mapActive} mapPoints={mapPoints} completed={mapCompleted} viewingRecord={viewingRecord} mode={view} trkPoints={trkPoints} />
+                <MapController pos={pos} active={trkActive || mapActive} mapPoints={mapPoints} completed={mapCompleted} viewingRecord={viewingRecord} mode={view} trkPoints={trkPoints} isFollowing={isFollowing} setIsFollowing={setIsFollowing}/>
                 <AccuracyOvals pos={pos} anchor={currentAnchor} gender={ratingGender} active={view === 'track' && trkActive} mode={ovalMode} />
                 {pos && !viewingRecord && (<><Circle center={[pos.lat, pos.lng]} radius={pos.accuracy} pathOptions={{ color: 'transparent', fillColor: getAccuracyColor(pos.accuracy), fillOpacity: 1, weight: 0 }} /><CircleMarker center={[pos.lat, pos.lng]} radius={7} pathOptions={{ color: '#fff', fillColor: '#10b981', fillOpacity: 1, weight: 2.5 }} /></>)}
                 {view === 'track' && (trkActive || viewingRecord || trkPoints.length > 1) && (
