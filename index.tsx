@@ -215,17 +215,27 @@ const USER_MANUAL = [
   ),
     content: (
       <>
-The App is able to toggle the display between the actual route through all of the pivot points, or draw separate lines for both Scratch and Bogey players, through their respective pivots. Click the waypoint button to switch between the two displays and toggle between Scratch and Bogey.
+The App is able to toggle the display between the actual route through all of the pivot points, or draw separate lines for both Scratch and Bogey players, through their respective pivots. Click the waypoint button to switch between the two displays and toggle between the route through all pivots, or individual Scratch and Bogey routes.
+      </>
+    )
+  },
+  {
+    title: "Follow-Me",
+    color: "text-emerald-400",
+    icon: <Crosshair className="text-emerald-400" />,
+    content: (
+      <>
+When using either Distance racker or Green Mapper, the display will follow the current location, panning and zooming as the location changes. If you click and drag or zoom manually, this follow-me function will turn itself off until you hit the button to turn it back on. When it is activated, the button pulses green and when it is deactivated it will be grey.
       </>
     )
   },
   {
     title: "Accuracy Pattern",
     color: "text-orange-400",
-    icon: <Crosshair className="text-orange-400" />,
+    icon: <CircleOff className="text-orange-400" />,
     content: (
       <>
-The App is able to display the 'Accuracy Pattern' in realtime for Scratch and Bogey players. This display is toggled with the button to the left of the units button and cycles between 'Off' (default), <span className="text-emerald-500 font-black">Scratch</span> or <span className="text--500 font-black">Bogey.</span> This function allows the Rater to see on the background satellite imagery the proximity of obstacles around the target. To use this facility properly, mark every shot as a pivot, so that the next shot length is used.
+The App is able to display the 'Accuracy Pattern' in real-time for Scratch and Bogey players. This display is toggled with the button to the right of the home button and cycles between 'Off' (default), <span className="text-emerald-500 font-black">Scratch</span> or <span className="text--500 font-black">Bogey.</span> This function allows the Rater to see on the background satellite imagery the proximity of obstacles around the target. To use this facility properly, mark every shot as a pivot, so that the next shot length is used.
       </>
     )
   },
