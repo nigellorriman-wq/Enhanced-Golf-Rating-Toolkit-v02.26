@@ -225,7 +225,7 @@ The App is able to toggle the display between the actual route through all of th
     icon: <Crosshair className="text-emerald-400" />,
     content: (
       <>
-When using either Distance racker or Green Mapper, the display will follow the current location, panning and zooming as the location changes. If you click and drag or zoom manually, this follow-me function will turn itself off until you hit the button to turn it back on. When it is activated, the button pulses green and when it is deactivated it will be grey.
+When using either Distance Tracker or Green Mapper, the display will follow the current location, panning and zooming as the location changes. If you click and drag or zoom manually, this follow-me function will turn itself off until you hit the button to turn it back on. When it is activated, the button pulses green and when it is deactivated it will be grey.
       </>
     )
   },
